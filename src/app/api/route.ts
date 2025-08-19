@@ -1,5 +1,7 @@
 import next from "next";
 import { NextRequest, NextResponse } from "next/server";
+import postgres from "postgres";
+
 
 export async function POST(request: NextRequest) {
   const data = await request.json();
@@ -19,6 +21,9 @@ export async function POST(request: NextRequest) {
     if (author < 3) {
       throw new Error("The author needs more than three characters");
     }
+    const connection_string = "postgresql://postgres.xytmqlnbpvqaqwmollnk:FQ_241609@aws-0-us-east-2.pooler.supabase.com:6543/postgres"
+    const sql = postgres(connection_string)
+
     return NextResponse.json({
       message: "The post its correct",
     });
