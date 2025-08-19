@@ -1,8 +1,8 @@
 export default class Author {
-  public author: string;
+  public value: string;
   constructor(author: string) {
-    this.check_author(author)
-    this.author = author
+    this.check_author(author);
+    this.value = author;
   }
   private check_author(author: string) {
     if (author.length < 3) {

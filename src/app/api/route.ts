@@ -1,21 +1,15 @@
 import next from "next";
 import { NextRequest, NextResponse } from "next/server";
-import postgres from "postgres";
-import { TLSSocket } from "tls";
-import Create_Post from "./create_post";
-import Save_Post from "./save_post";
+import Load_post from "../utils/load_post";
+import Postgres_Post from "../utils/postgres_post";
+import In_Memori_Post from "../utils/in_memori_post";
 
 export async function POST(request: NextRequest) {
-  const data = await request.json();
-
-  const title = data.title;
-  const description = data.description;
-  const author = data.author;
-
   try {
-    const post = new Create_Post(title, description, author)
-    const database = new Save_Post()
-    database.save(post)
+    const data = await request.json();
+    const database = new Postgres_Post();
+    const load_post = new Load_post(database)
+    load_post.run(data.title, data.description, data.author);
     return NextResponse.json({
       message: "The post its correct",
     });
@@ -29,4 +23,3 @@ export async function POST(request: NextRequest) {
     );
   }
 }
-

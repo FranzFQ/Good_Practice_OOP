@@ -1,8 +1,8 @@
 export default class Title {
-  public title: string;
+  public value: string;
   constructor(title: string) {
-    this.check_title(title)
-    this.title = title
+    this.check_title(title);
+    this.value = title;
   }
 
   private check_title(title: string) {

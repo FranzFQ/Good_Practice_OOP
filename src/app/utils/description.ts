@@ -1,8 +1,8 @@
 export default class Description {
-  public description: string;
+  public value: string;
   constructor(description: string) {
     this.check_description(description);
-    this.description = description
+    this.value = description;
   }
   private check_description(description: string) {
     if (description.length < 10) {
