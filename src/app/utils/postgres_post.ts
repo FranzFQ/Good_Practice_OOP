@@ -27,4 +27,17 @@ export default class Postgres_Post {
       return post_list.length;
     } catch {}
   }
+
+  async update_post(id: string, data: any){
+    try{
+      const [post] = await this.sql`UPDATE publication SET title = ${data.title}, description = ${data.description}, author = ${data.author} WHERE id = ${id}`
+      if (!post){
+        return false
+      }
+      return true
+    }catch(e){
+      throw new Error("update error")
+    }
+  }
+
 }
