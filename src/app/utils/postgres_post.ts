@@ -1,6 +1,7 @@
 import postgres, { Sql } from "postgres";
 import Create_Post from "./create_post";
 import { Crafty_Girls } from "next/font/google";
+import { fallbackModeToFallbackField } from "next/dist/lib/fallback";
 
 export default class Postgres_Post {
   private readonly sql: Sql;
@@ -28,16 +29,28 @@ export default class Postgres_Post {
     } catch {}
   }
 
-  async update_post(id: string, data: any){
-    try{
-      const [post] = await this.sql`UPDATE publication SET title = ${data.title}, description = ${data.description}, author = ${data.author} WHERE id = ${id}`
-      if (!post){
-        return false
+  async update_post(id: string, data: any) {
+    try {
+      const [post] = await this
+        .sql`UPDATE post SET title = ${data.title}, description = ${data.description}, author = ${data.author} WHERE id = ${id}`;
+      if (!post) {
+        return false;
       }
-      return true
-    }catch(e){
-      throw new Error("update error")
+      return true;
+    } catch (e) {
+      throw new Error("update error");
     }
   }
 
+  async delet_post(id: string) {
+    try {
+      const [post] = await this.sql`DELET FROM post WHERE id = ${id}`;
+      if (!post) {
+        return false;
+      }
+      return true;
+    } catch (e) {
+      throw new Error("delet error")
+    }
+  }
 }

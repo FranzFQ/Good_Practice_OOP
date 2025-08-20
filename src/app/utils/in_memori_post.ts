@@ -27,11 +27,21 @@ export default class In_Memori_Post {
     if (position === null) {
       return false;
     }
-    this.posts[position].title = data.title
-    this.posts[position].description = data.description
-    this.posts[position].author = data.author
+    this.posts[position].title = data.title;
+    this.posts[position].description = data.description;
+    this.posts[position].author = data.author;
     return true;
   }
+
+  public delet_post(id: string) {
+    const position = this.find_position(id);
+    if (position === null) {
+      return false;
+    }
+    this.posts.splice(position, 1);
+    return true;
+  }
+
   private find_position(id: string) {
     for (const post of this.posts)
       if (id === post.id) {

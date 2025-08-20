@@ -25,3 +25,24 @@ export async function PUT(request: Request, { info }: any) {
     });
   }
 }
+
+export async function DELET(request: Request, { data }: any) {
+  try {
+    const { id } = await data;
+    const database = new Postgres_Post();
+
+    const delet = await database.delet_post(id);
+    if (delet === false) {
+      return NextResponse.json({
+        message: "id not found",
+      });
+    }
+    return NextResponse.json({
+      error: "delet successfully",
+    });
+  } catch (e) {
+    return NextResponse.json({
+      error: "Fail to delet",
+    });
+  }
+}
