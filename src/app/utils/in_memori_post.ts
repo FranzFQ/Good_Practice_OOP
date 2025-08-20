@@ -17,5 +17,7 @@ export default class In_Memori_Post {
     const author = post_info.author.value
     this.posts.push({title, description, author})
   }
-
+  obtain_posts(){
+    return this.posts.length
+  }
 }

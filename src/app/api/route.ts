@@ -8,7 +8,7 @@ export async function POST(request: NextRequest) {
   try {
     const data = await request.json();
     const database = new Postgres_Post();
-    const load_post = new Load_post(database)
+    const load_post = new Load_post(database);
     load_post.run(data.title, data.description, data.author);
     return NextResponse.json({
       message: "The post its correct",
@@ -21,5 +21,19 @@ export async function POST(request: NextRequest) {
       },
       { status: 500 }
     );
+  }
+}
+
+export async function GET() {
+  try {
+    const database = new Postgres_Post();
+    const data = await database.obtain_posts();
+    return NextResponse.json({
+      have: data,
+    });
+  } catch {
+    return NextResponse.json({
+      error: "Fail for get all post",
+    });
   }
 }
